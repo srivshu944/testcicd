@@ -1,0 +1,47 @@
+name: C++ Build and Test
+
+# Trigger the workflow on push or pull request events
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  build-and-test:
+    runs-on: ubuntu-latest  # Use an Ubuntu runner
+
+    steps:
+    # Step 1: Checkout the repository
+    - name: Checkout code
+      uses: actions/checkout@v3
+
+    # Step 2: Install required dependencies
+    - name: Install dependencies
+      run: |
+        sudo apt-get update
+        sudo apt-get install -y build-essential cmake
+
+    # Step 3: Configure the build (using CMake as an example)
+    - name: Configure CMake
+      run: |
+        cmake -S . -B build
+
+    # Step 4: Build the project
+    - name: Build
+      run: |
+        cmake --build build
+
+    # Step 5: Run tests (if applicable)
+    - name: Run Tests
+      run: |
+        cd build && ctest
+
+    # Step 6: Upload artifacts (optional)
+    - name: Upload compiled executable
+      uses: actions/upload-artifact@v3
+      with:
+        name: cpp-app
+        path: build/  # Adjust the path to your compiled files
