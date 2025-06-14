@@ -41,7 +41,7 @@ jobs:
 
     # Step 6: Upload artifacts (optional)
     - name: Upload compiled executable
-      uses: actions/upload-artifact@v3
+      uses: actions/upload-artifact@v4
       with:
         name: cpp-app
         path: build/  # Adjust the path to your compiled files
